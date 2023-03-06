@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+    background-color: #60008c;
+    /* color: white; */
+}
+
+.logo {
+    position: absolute;
+    left: 2%;
+    font-size: 50px;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    
+}
+
+.container {
+    font-family: 'Bangers', cursive;
+}
+
+.halv-logo {
+    font-family: 'Bangers', cursive;
+    color: rgb(255, 187, 0);
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    position: absolute;
+    right: 5%;
+}
+
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 25px;
+    text-decoration: none;
+    font-size: 20px;
+
+}
+
+.login-button  a{
+    background-color: #91008c;
+}
+
+li a:hover:not(.active) {
+    font-size: 22px;
+  }
+  
+  
+
+.nav-links {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    width: 75%;
+}
+
+.home,
+.login,
+.historia {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.login {
+    border: 1px  solid yellow;
+    border-radius: 5px;
+}
+
+.mobile-menu-icon {
+    display: none;
+}
+
+@media screen and (max-width: 780px) {
+    .logo {
+        display: flex;
+        position: absolute;
+        top: 15px;
+        left: 33%;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-links-mobile {
+        position: absolute;
+        display: block;
+        list-style: none;
+        background-color: #005469;
+        left: 0;
+        top: 75px;
+        transition: all 0.5s ease-out;
+        width: 100%;
+
+    }
+
+    .home,
+    .historia,
+    .login {
+        color: white;
+        text-align: center;
+        /* padding: 32px; */
+        font-size: 50px;
+        width: 100%;
+        transition: all 0.5s ease;
+    }
+
+    .login {
+        border: none;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+        position: absolute;
+        font-size: 30px;
+        color: white;
+        background-color: #00828c;
+        border: none;
+        outline: none;
+        top: 15px;
+        right: 25px;
+    }
+
+
+}
