@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navbar.css"
+import logo from './logo.jpg'; // Tell webpack this JS file uses this image
 
  
 export default function Navbar() {
@@ -10,7 +11,9 @@ export default function Navbar() {
 
     return (
         <nav className="navbar">
-            <h3 className="logo" onClick={goHome}>Event<span className="halv-logo">Hub</span></h3> 
+            <img className="logoreact" src={logo}  onClick={goHome} alt="Logo" />;
+            {/* <h3 className="logo" onClick={goHome}>Event<span className="halv-logo">Hub</span></h3>  */}
+
             <ul>
                 <li className="login-button">
                     <a href="/login">Login</a>

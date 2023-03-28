@@ -11,7 +11,7 @@
     justify-content: space-around;
     align-items: center;
     height: 100px;
-    background-color: #60008c;
+    background-color: rgb(84, 119, 137);
     /* color: white; */
 }
 
@@ -32,6 +32,13 @@
     font-family: 'Bangers', cursive;
     color: rgb(255, 187, 0);
 }
+
+.logoreact {
+    width: 10%;
+    height: 130%;
+    position: absolute;
+}
+
 
 ul {
     list-style-type: none;
@@ -56,9 +63,9 @@ li a {
 
 }
 
-.login-button  a{
+/* .login-button  a{
     background-color: #91008c;
-}
+} */
 
 li a:hover:not(.active) {
     font-size: 22px;
@@ -92,6 +99,8 @@ li a:hover:not(.active) {
 .mobile-menu-icon {
     display: none;
 }
+
+
 
 @media screen and (max-width: 780px) {
     .logo {
