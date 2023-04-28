@@ -3,92 +3,78 @@ import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import data from './data.js'; // import the data array
 
 function App() {
   const [search, setSearch] = useState('');
-  const [data, setData] = useState([
-    {
-        id:1,
-        date: '2023-04-06',
-        address: 'Malmö',
-        name: 'Summerburst',
-        category: 'Rave'
-    },
-    {
-        id:2,
-        date: '2023-08-11',
-        address: 'Stockholm',
-        name: 'Kärleksklubben',
-        category: 'R&B'
-    },
-    {
-        id:3,
-        date: '2023-03-07',
-        address: 'Malmö',
-        name: 'ROll ouy',
-        category: 'Rave'
-    }
-])
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [tableData, setTableData] = useState(data); // use the imported data array
 
-  // const sortName = () => {
-  //   setContacts(
-  //     data.sort((a, b) => {
-  //       return a.first_name.toLowerCase() < a.first_name.toLowerCase()
-  //         ? -1
-  //         : a.first_name.toLowerCase() > a.first_name.toLowerCase()
-  //         ? 1
-  //         : 0;
-  //     })
-  //   );
-  // };
+  const onSearch = (searchTerm) => {
+    // filter the data based on the search term and category filter
+    const filteredData = data.filter((item) => {
+      return (
+        item.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ) && (
+        categoryFilter === '' || item.category === categoryFilter
+      );
+    });
 
-  const onSearch =  async (search_term) => {
-    // gör sökning från databas
-    let new_data = []
+    setTableData(filteredData);
+    setSearch(searchTerm);
+  };
 
-    // for(var x of data) {
-    //     if(x.date.includes(search_term) || x.address.toLowerCase().includes(search_term) || x.name.toLowerCase().includes(search_term) || x.category.toLowerCase().includes(search_term)){
-    //         new_data.push(x)
-    //     }
-    // }
-
-    setSearch(search_term)
-    setData(new_data)
+  const onCategoryFilter = (category) => {
+    setCategoryFilter(category);
+    onSearch(search);
   }
+
+  const categories = [...new Set(data.map(item => item.category))]; // get unique categories from data
 
   return (
     <div>
       <Container>
-        
         <Form>
           <InputGroup className='my-3'>
-
-            {/* onChange for search */}
             <Form.Control
               onChange={(e) => onSearch(e.target.value)}
-              placeholder='Search contacts'
+              placeholder='Search events'
             />
+            <DropdownButton
+              as={InputGroup.Append}
+              variant='outline-secondary'
+              title={categoryFilter || 'Category'}
+            >
+              <Dropdown.Item onClick={() => onCategoryFilter('')}>All categories</Dropdown.Item>
+              {categories.map((category, index) => (
+                <Dropdown.Item key={index} onClick={() => onCategoryFilter(category)}>{category}</Dropdown.Item>
+              ))}
+            </DropdownButton>
           </InputGroup>
         </Form>
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Datum</th>
-              <th>Adress</th>
-              <th>Namn</th>
-              <th>Kategori</th>
+              <th>Date</th>
+              <th>Address</th>
+              <th>Name</th>
+              <th>Category</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.date}</td>
-                  <td>{item.address}</td>
-                  <td>{item.name}</td>
-                  <td>{item.category}</td>
-                </tr>
-              ))}
+            {tableData.map((item, index) => (
+              <tr key={index}>
+                <td>{item.date}</td>
+                <td>{item.address}</td>
+                <td>{item.name}</td>
+                <td>{item.category}</td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </Container>
