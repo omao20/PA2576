@@ -1,8 +1,8 @@
 import './App.css';
 import Navbar from './navbar';
 import Contact from './page/Contact';
-import Login from './page/Login';
-import Signup from './Sign';
+import Login from './page/login';
+import Signup from './page/Sign';
 
 import Home from './page/Home';
 import { Route, Routes } from 'react-router-dom';

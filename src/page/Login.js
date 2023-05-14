@@ -1,32 +1,47 @@
 import React, { useState } from "react";
-import { loginUser } from "../apiManager";
 import "./pages.css";
-import Cookies from "universal-cookie";
+import "./login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user");
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  async function handleSubmit(event) {
+  const handleLogin = (event) => {
     event.preventDefault();
-
-    const res = await loginUser(email, password);
-    if(res) {
-        const cookie = new Cookies();
-        cookie.set("user", res.data)
-        
-        console.log(cookie.get("user"))
+    if (email === "jakob@hotmail.com" && password === "jakob" && role === "admin") {
+      setLoggedIn(true);
+      setEmail("");
+      setPassword("");
+      setRole("user");
+      alert("User login successful!");
+    } else if (email === "omar@hotmail.com" && password === "omar" && role === "user") {
+      setLoggedIn(true);
+      setEmail("");
+      setPassword("");
+      setRole("user");
+      alert("User login successful!");
+    } else {
+      alert("Wrong username or password!");
     }
+  };
+
+
+  if (loggedIn) {
+    document.location.href = `/`
   }
 
-//   const sendLogin = async () => {
-//     console.log(email, password)
-//     const res = await loginUser(email, password);
-//     console.log(res)
-//   }
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleLogin} className="form-container">
+
+      <label>
+        Role:
+        <select value={role} onChange={(event) => setRole(event.target.value)}>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </label>
       <label>
         Email:
         <input
@@ -45,9 +60,14 @@ function Login() {
         />
       </label>
 
-      <button type="submit">Login</button>
+
+
+      <button type="submit">Log in</button>
+      <a href="/sign">Create account</a>
     </form>
   );
 }
+
+
 
 export default Login;

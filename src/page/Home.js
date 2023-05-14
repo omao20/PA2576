@@ -12,6 +12,7 @@ function App() {
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [tableData, setTableData] = useState(data); // use the imported data array
+  const [sortDirection, setSortDirection] = useState('asc');
 
   const onSearch = (searchTerm) => {
     // filter the data based on the search term and category filter
@@ -24,7 +25,7 @@ function App() {
         categoryFilter === '' || item.category === categoryFilter
       );
     });
-
+  
     setTableData(filteredData);
     setSearch(searchTerm);
   };
@@ -32,6 +33,19 @@ function App() {
   const onCategoryFilter = (category) => {
     setCategoryFilter(category);
     onSearch(search);
+  }
+
+  const onSort = (sortBy) => {
+    const sortedData = [...tableData].sort((a, b) => {
+      if (sortDirection === 'asc') {
+        return a[sortBy] - b[sortBy];
+      } else {
+        return b[sortBy] - a[sortBy];
+      }
+    });
+
+    setTableData(sortedData);
+    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
   }
 
   const categories = [...new Set(data.map(item => item.category))]; // get unique categories from data
@@ -55,15 +69,24 @@ function App() {
                 <Dropdown.Item key={index} onClick={() => onCategoryFilter(category)}>{category}</Dropdown.Item>
               ))}
             </DropdownButton>
+            <DropdownButton
+              as={InputGroup.Append}
+              variant='outline-secondary'
+              title={sortDirection === 'asc' ? 'Price Low to High' : 'Price High to Low'}
+            >
+              <Dropdown.Item onClick={() => onSort('pris')}>Price Low to High</Dropdown.Item>
+              <Dropdown.Item onClick={() => onSort('pris')}>Price High to Low</Dropdown.Item>
+            </DropdownButton>
           </InputGroup>
         </Form>
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Date</th>
+              <th onClick={() => onSort('date')}>Date</th>
               <th>Address</th>
               <th>Name</th>
               <th>Category</th>
+              <th onClick={() => onSort('pris')}>Price</th>
             </tr>
           </thead>
           <tbody>
@@ -73,6 +96,7 @@ function App() {
                 <td>{item.address}</td>
                 <td>{item.name}</td>
                 <td>{item.category}</td>
+                <td>{item.pris}</td>
               </tr>
             ))}
           </tbody>
