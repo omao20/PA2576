@@ -19,9 +19,6 @@ export default function Navbar() {
                     <a href="/login">Login</a>
                 </li>
                 <li>
-                    <a  href="/login">Sign up</a>
-                </li>
-                <li>
                     <a href="/about">About</a>
                 </li>
                 <li>
